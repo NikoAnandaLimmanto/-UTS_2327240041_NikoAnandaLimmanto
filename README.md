@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTS PAW</title>
+</head>
+<body>
+    <h1>UTS Penembangan Aplikasi Web</h1>
+    <h3>Niko Ananda Limmanto</h3>
+    <h3>2327240041</h3>
+    <br>
+    <label for="gajiPokok">Gaji Pokok:</label>
+    <input type="number" id="gajiPokok">
+    <br><br>
+    <label for="tunjanganTetap">Tunjangan Tetap:</label>
+    <input type="number" id="tunjanganTetap">
+    <br><br>
+    <label for="masaKerja">Masa Kerja (bulan):</label>
+    <input type="number" id="masaKerja">
+    <br><br>
+    <button onclick="hitungTHR()">Hitung THR dan PPH</button>
+    <p id="hasil" class="output"></p>
+
+    <script type="text/javascript">
+
+        function hitungTHR() {
+            const gajiPokok = parseFloat(document.getElementById("gajiPokok").value);
+            const tunjanganTetap = parseFloat(document.getElementById("tunjanganTetap").value);
+            const masaKerja = parseInt(document.getElementById("masaKerja").value);
+            const totalGaji = gajiPokok + tunjanganTetap;
+
+            let THR = 0;
+            if (masaKerja >= 12) {
+                THR = totalGaji;
+            } else if (masaKerja <= 12) {
+                THR = (masaKerja / 12) * totalGaji;
+            } else {
+                THR = 0;
+            }
+            let PPH = 0;
+            const PTKP = 4500000;
+            if (totalGaji > PTKP) {
+                PPH = 0.05 * totalGaji;
+            }
+
+            const totalPembayaran = THR - PPH;
+
+            const hasil = `
+                Total Gaji: Rp. ${totalGaji.toLocaleString("total")} <br>
+                THR: Rp. ${THR.toLocaleString("total")} <br>
+                PPH: Rp. ${PPH.toLocaleString("total")} <br>
+                Total Pembayaran Diterima: Rp. ${totalPembayaran.toLocaleString("total")}
+            `;
+
+            document.getElementById("hasil").innerHTML = hasil;
+        }
+    </script>
+</body>
+</html>
